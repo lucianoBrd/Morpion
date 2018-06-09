@@ -6,7 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
+// Classe grille -> faire les grilles de bouton
 public class Grille {
     private SimpleFenetre fenetre;
     private JPanel grille;
@@ -14,20 +14,24 @@ public class Grille {
     private int taille;
     private JLabel label;
     
+    // Constructeur pour grille de accueil
     public Grille(SimpleFenetre fenetre, int taille){
         this.fenetre = fenetre;
         grille = new JPanel();
         this.taille = taille;
+        // Tableau de Component (objet de l'interface comme JButton) -> sauvegarder tous les bouton pour après pouvoir les modifier
         component = null;
         buildGrille();
         label = null;
         buttonGrille();
     }
     
+    // Constructeur pour ecran jeu
     public Grille(SimpleFenetre fenetre, int taille, JLabel label){
         this.fenetre = fenetre;
         grille = new JPanel();
         this.taille = taille;
+        // Le tableau fait taille*taille -> 3 pour une grille de 3, permet de sauvegarder tous les boutons
         component = new Component[taille*taille];
         buildGrille();
         this.label = label;
@@ -35,14 +39,16 @@ public class Grille {
     }
     
     private void buildGrille(){
-        
+        // Panel grille est un gridLayout (taille, taille, espacement, espacement)
         grille.setLayout(new GridLayout(taille, taille, 2, 2));
+        // Taille prefere assez petite pour ecran accueil
         grille.setMaximumSize(new Dimension(250,250));
     }
     
     private void buttonGrille(){
         JButton button;
         int indice;
+        // Selon la taille on sait l'indice donc a quel écran doit enmener le bouton
         switch(taille){
             case 3 :    indice = 1;
                         break;
@@ -52,7 +58,7 @@ public class Grille {
                         break;
             default :   indice = 0;
         }
-        
+        // Instancie tous les boutons et ajoute l'action
         for(int i=0; i<taille*taille; i++){
             button = new JButton(new IndiceAction("", fenetre, indice, this));
             grille.add(button);
@@ -61,29 +67,37 @@ public class Grille {
     
     private void buttonGrilleJeu(){
         JButton button;
+        // Ajout de l'action de la classe simpleFenetre pour les boutons du jeu
         for(int i=0; i<taille*taille; i++){
             button = new JButton();
             button.addActionListener(fenetre);
             grille.add(button);
+            // Ajout des boutons dans le tableau
             component[i] = button;
+            // Nom du bouton -> leur taille
             button.setName(String.valueOf(taille));
         }
         
     }
     
     public void reset(){
+        // et le tourJoueur a 0
         fenetre.setTourJoueur(0);
+        // Le label redevient celui avec le nom du premier joueur
         label.setText("Tour du joueur " + fenetre.getJoueur1());
             
         if(component != null){
             for (Component component1 : component) {
-            if (component1 instanceof JButton) {
+                
+                if (component1 instanceof JButton) {
                     JButton button = (JButton) component1;
                     button.setEnabled(true);
+                    // Remet les boutons sans aucun texte
                     button.setText("");
                 }
             }
         }
+        // Retour acceuil
         fenetre.getCardLayout().show(fenetre.getContentPane(), fenetre.getListeContent()[0]);
     }
     
@@ -95,7 +109,9 @@ public class Grille {
         return label;
     }
     
+    // Savoir si des éléments de la grille sont alignés
     public boolean aligne(){
+        // Le test dépend de la taille du tableau ou de taille
         switch (component.length) {
             case 3*3:
                 return aligne3(component);
