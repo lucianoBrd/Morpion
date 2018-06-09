@@ -7,13 +7,13 @@ public class IndiceAction extends AbstractAction{
         private SimpleFenetre fenetre;
         private int indice;
         private int option;
-        private Component[] component;
+        private Grille grille;
         
-        public IndiceAction(String texte, SimpleFenetre fenetre, int indice, Component[] component){
+        public IndiceAction(String texte, SimpleFenetre fenetre, int indice, Grille grille){
             super(texte);
             this.fenetre = fenetre;
             this.indice = indice;
-            this.component = component;
+            this.grille = grille;
         }
         
         public void actionPerformed(ActionEvent e){
@@ -21,11 +21,10 @@ public class IndiceAction extends AbstractAction{
                 
                 option = JOptionPane.showConfirmDialog(null, "Voulez-vous revenir au menu ?", "Morpion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if(option == 0){
-                    fenetre.reset(component);
+                    grille.reset();
                 }
             } else {
                 fenetre.getCardLayout().show(fenetre.getContentPane(), fenetre.getListeContent()[indice]);
-                
             }
         }
         
