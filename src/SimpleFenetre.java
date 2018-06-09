@@ -1,17 +1,28 @@
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-import javax.swing.border.Border;
+
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+
 
 public class SimpleFenetre extends JFrame implements ActionListener{
     private CardLayout cl = new CardLayout();
     private String[] listContent = {"Accueil", "Jeu3", "Jeu5", "Jeu7"};
-    private Joueur joueur1 = new Joueur();
-    private Joueur joueur2 = new Joueur();
+    private Joueur joueur1 = new Joueur(1);
+    private Joueur joueur2 = new Joueur(2);
     private int tourJoueur;
     private Jeu jeu3;
     private Jeu jeu5;
     private Jeu jeu7;
+    private Menu menu;
     
     public SimpleFenetre(){
         super();
@@ -68,6 +79,7 @@ public class SimpleFenetre extends JFrame implements ActionListener{
                 if(grille.aligne()){
                     JOptionPane.showMessageDialog(null, "Le joueur " + inverseJoueur(joueur) + " remporte la partie !", "Morpion", JOptionPane.INFORMATION_MESSAGE);
                     grille.reset();
+                    this.setJMenuBar(getMenu());
                 }
             }
     }
@@ -88,6 +100,7 @@ public class SimpleFenetre extends JFrame implements ActionListener{
         setResizable(false);
         
         this.setContentPane(buildPanel());
+        this.setJMenuBar(buildMenu());
         
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,6 +132,17 @@ public class SimpleFenetre extends JFrame implements ActionListener{
         jeu7 = new Jeu(this, 7);
     }
     
+    private JMenuBar buildMenu(){
+        menu = new Menu(this);
+        return menu.getMenuBar();
+    }
+    
+    
+    public void setTourJoueur(int tourJoueur){
+        if(tourJoueur>=0){
+            this.tourJoueur = tourJoueur;
+        }
+    }
     public CardLayout getCardLayout(){
         return cl;
     }
@@ -128,13 +152,26 @@ public class SimpleFenetre extends JFrame implements ActionListener{
     public int getTourJoueur(){
         return tourJoueur;
     }
-    public void setTourJoueur(int tourJoueur){
-        if(tourJoueur>=0){
-            this.tourJoueur = tourJoueur;
-        }
-    }
     public String getJoueur1(){
         return joueur1.getJoueur();
+    }
+    public Joueur getJoueurClass1(){
+        return joueur1;
+    }
+    public Joueur getJoueurClass2(){
+        return joueur2;
+    }
+    public Jeu getJeu3(){
+        return jeu3;
+    }
+    public Jeu getJeu5(){
+        return jeu5;
+    }
+    public Jeu getJeu7(){
+        return jeu7;
+    }
+    public JMenuBar getMenu(){
+        return menu.getMenuBar();
     }
  
 }

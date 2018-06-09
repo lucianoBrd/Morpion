@@ -1,6 +1,9 @@
-import java.awt.Component;
-import javax.swing.*;
-import java.awt.event.*;
+
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.JOptionPane;
+
+
 
 public class IndiceAction extends AbstractAction{
         
@@ -22,9 +25,11 @@ public class IndiceAction extends AbstractAction{
                 option = JOptionPane.showConfirmDialog(null, "Voulez-vous revenir au menu ?", "Morpion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if(option == 0){
                     grille.reset();
+                    fenetre.setJMenuBar(fenetre.getMenu());
                 }
             } else {
                 fenetre.getCardLayout().show(fenetre.getContentPane(), fenetre.getListeContent()[indice]);
+                fenetre.setJMenuBar(null);
             }
         }
         
