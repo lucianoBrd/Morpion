@@ -69,8 +69,7 @@ public class Grille {
         JButton button;
         // Ajout de l'action de la classe simpleFenetre pour les boutons du jeu
         for(int i=0; i<taille*taille; i++){
-            button = new JButton();
-            button.addActionListener(fenetre);
+            button = new JButton(new ActionJeu("", fenetre));
             grille.add(button);
             // Ajout des boutons dans le tableau
             component[i] = button;
@@ -82,7 +81,7 @@ public class Grille {
     
     public void reset(){
         // et le tourJoueur a 0
-        fenetre.setTourJoueur(0);
+        fenetre.resetTourJoueur();
         // Le label redevient celui avec le nom du premier joueur
         label.setText("Tour du joueur " + fenetre.getJoueur1());
             

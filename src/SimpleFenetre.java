@@ -1,19 +1,12 @@
 
 import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
 
-public class SimpleFenetre extends JFrame implements ActionListener{
+public class SimpleFenetre extends JFrame{
     // CardLayout nous permet d'avoir plusieurs écrans
     private CardLayout cl = new CardLayout();
     // Un tableau contenant le nom de tout nos écrans
@@ -22,8 +15,8 @@ public class SimpleFenetre extends JFrame implements ActionListener{
     private Joueur joueur1 = new Joueur(1);
     // Objet joueur -> le second
     private Joueur joueur2 = new Joueur(2);
-    // Permet de savoir qui joue
-    private int tourJoueur;
+    // Permet de savoir qui joue, si la grille est pleine
+    private TourJoueur tourJoueur = new TourJoueur();
     // Ojbet jeu -> ecran du jeu 3x3
     private Jeu jeu3;
     // 5x5
@@ -37,86 +30,12 @@ public class SimpleFenetre extends JFrame implements ActionListener{
         super();
         nomJoueur();
         build();
-        tourJoueur = 0;
     }
     
     private void nomJoueur(){
         // Demande les prenoms des joueurs
         joueur1.setJoueur();
         joueur2.setJoueur();
-    }
-    
-    // Action quand on clique sur un bouton de l'ecran jeu
-    public void actionPerformed (ActionEvent event) {
-        // On récupère le Button a l'origine de l'action
-        JButton button = (JButton)event.getSource();
-        String joueur;
-        Grille grille = null;
-        JLabel label = new JLabel();
-        
-        // Savoir de quelle grille le bouton provient, le bouton a pour nom la taille de la grille 3, 5 ou 7
-        switch (button.getName()) {
-            case "3":
-                // On récupère le label de la grille (tour du joueur ...)
-                label = jeu3.getGrille().getLabel();
-                // Recupere la grille
-                grille = jeu3.getGrille();
-                break;
-            case "5":
-                label = jeu5.getGrille().getLabel();
-                grille = jeu5.getGrille();
-                break;
-            case "7":
-                label = jeu7.getGrille().getLabel();
-                grille = jeu7.getGrille();
-                break;
-            default:
-                break;
-        }
-        
-            // Verifie que le bouton n'a pas déja ete cliqué
-            if(!button.getText().equals("X") && !button.getText().equals("O")){
-                String text;
-                // A qui de jouer après
-                if(tourJoueur%2 == 0){
-                    text = "X";
-                    joueur = joueur2.getJoueur();
-                } else {
-                    text = "O";
-                    joueur = joueur1.getJoueur();
-                }
-                
-                tourJoueur++;
-                // Le label change avec le nom du prochain joueur
-                label.setText("Tour du joueur " + joueur);
-                // changement de a police et couleur du texte du boutton
-                button.setFont(new Font("Montserrat", Font.PLAIN, 45));
-                button.setForeground(new Color(112, 112, 112));
-                // On met "X" ou "O" sur le bouton
-                button.setText(text);
-                
-                // La grille a t elle des élément alignés 
-                if(grille.aligne()){
-                    // On informe du gagnant
-                    // Il faut inverser joueur car il contient le prochain
-                    JOptionPane.showMessageDialog(null, "Le joueur " + inverseJoueur(joueur) + " remporte la partie !", "Morpion", JOptionPane.INFORMATION_MESSAGE);
-                    // On remet la grille a neuf (enlève les "X" ou "O" des boutons...
-                    // Et retour a l'ecran principal
-                    grille.reset();
-                    // On remet le menu afin que l'on puisse le voir de l'écran d'accueil
-                    this.setJMenuBar(getMenu());
-                }
-            }
-    }
-    
-    // Inverse la valeur du joueur passé en paramètre
-    private String inverseJoueur(String joueur){
-        if(joueur.equals(joueur1.getJoueur())){
-            joueur = joueur2.getJoueur();
-        } else {
-            joueur = joueur1.getJoueur();
-        }
-        return joueur;
     }
     
     private void build(){
@@ -172,10 +91,8 @@ public class SimpleFenetre extends JFrame implements ActionListener{
     }
     
     // Setteur
-    public void setTourJoueur(int tourJoueur){
-        if(tourJoueur>=0){
-            this.tourJoueur = tourJoueur;
-        }
+    public void resetTourJoueur(){
+        tourJoueur.resetTourJoueur();
     }
     
     // Getteur
@@ -185,11 +102,14 @@ public class SimpleFenetre extends JFrame implements ActionListener{
     public String[] getListeContent(){
         return listContent;
     }
-    public int getTourJoueur(){
+    public TourJoueur getTourJoueur(){
         return tourJoueur;
     }
     public String getJoueur1(){
         return joueur1.getJoueur();
+    }
+    public String getJoueur2(){
+        return joueur2.getJoueur();
     }
     public Joueur getJoueurClass1(){
         return joueur1;
