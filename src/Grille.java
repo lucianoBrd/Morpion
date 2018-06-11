@@ -302,7 +302,7 @@ public class Grille {
                 return true;
             }
         }
-        //diagonales 
+        //diagonales droite
         for(int i=0; i<25; i+=8){
             button1 = (JButton)component[i];
             button2 = (JButton)component[i+8];
@@ -355,12 +355,96 @@ public class Grille {
         if(!button1.getText().equals("") && button1.getText().equals(button2.getText()) && button1.getText().equals(button3.getText()) && button1.getText().equals(button4.getText())){
             return true;
         }
-        
-        //diagonales superieures
         button1 = (JButton)component[3];
         button2 = (JButton)component[11];
         button3 = (JButton)component[19];
         button4 = (JButton)component[27];
+        if(!button1.getText().equals("") && button1.getText().equals(button2.getText()) && button1.getText().equals(button3.getText()) && button1.getText().equals(button4.getText())){
+            return true;
+        }
+        
+        // Diagonales gauche
+        for(int i=0; i<25; i+=6){
+            if(i<25){
+                button1 = (JButton)component[i+6];
+                button2 = (JButton)component[i+12];
+                button3 = (JButton)component[i+18];
+                button4 = (JButton)component[i+24];
+                if(!button1.getText().equals("") && button1.getText().equals(button2.getText()) && button1.getText().equals(button3.getText()) && button1.getText().equals(button4.getText())){
+                    return true;
+                }
+            }
+            if(i<18){
+                button1 = (JButton)component[i+5];
+                button2 = (JButton)component[i+11];
+                button3 = (JButton)component[i+17];
+                button4 = (JButton)component[i+23];
+                if(!button1.getText().equals("") && button1.getText().equals(button2.getText()) && button1.getText().equals(button3.getText()) && button1.getText().equals(button4.getText())){
+                    return true;
+                }
+            }
+            if(i<11){
+                button1 = (JButton)component[i+4];
+                button2 = (JButton)component[i+10];
+                button3 = (JButton)component[i+16];
+                button4 = (JButton)component[i+22];
+                if(!button1.getText().equals("") && button1.getText().equals(button2.getText()) && button1.getText().equals(button3.getText()) && button1.getText().equals(button4.getText())){
+                    return true;
+                }
+            }
+        }
+        button1 = (JButton)component[3];
+        button2 = (JButton)component[9];
+        button3 = (JButton)component[15];
+        button4 = (JButton)component[21];
+        if(!button1.getText().equals("") && button1.getText().equals(button2.getText()) && button1.getText().equals(button3.getText()) && button1.getText().equals(button4.getText())){
+            return true;
+        }
+        
+        button1 = (JButton)component[13];
+        button2 = (JButton)component[19];
+        button3 = (JButton)component[25];
+        button4 = (JButton)component[31];
+        if(!button1.getText().equals("") && button1.getText().equals(button2.getText()) && button1.getText().equals(button3.getText()) && button1.getText().equals(button4.getText())){
+            return true;
+        }
+        
+        button1 = (JButton)component[19];
+        button2 = (JButton)component[25];
+        button3 = (JButton)component[31];
+        button4 = (JButton)component[37];
+        if(!button1.getText().equals("") && button1.getText().equals(button2.getText()) && button1.getText().equals(button3.getText()) && button1.getText().equals(button4.getText())){
+            return true;
+        }
+        
+        button1 = (JButton)component[25];
+        button2 = (JButton)component[31];
+        button3 = (JButton)component[37];
+        button4 = (JButton)component[43];
+        if(!button1.getText().equals("") && button1.getText().equals(button2.getText()) && button1.getText().equals(button3.getText()) && button1.getText().equals(button4.getText())){
+            return true;
+        }
+        
+        button1 = (JButton)component[20];
+        button2 = (JButton)component[26];
+        button3 = (JButton)component[32];
+        button4 = (JButton)component[38];
+        if(!button1.getText().equals("") && button1.getText().equals(button2.getText()) && button1.getText().equals(button3.getText()) && button1.getText().equals(button4.getText())){
+            return true;
+        }
+        
+        button1 = (JButton)component[26];
+        button2 = (JButton)component[32];
+        button3 = (JButton)component[38];
+        button4 = (JButton)component[44];
+        if(!button1.getText().equals("") && button1.getText().equals(button2.getText()) && button1.getText().equals(button3.getText()) && button1.getText().equals(button4.getText())){
+            return true;
+        }
+        
+        button1 = (JButton)component[27];
+        button2 = (JButton)component[33];
+        button3 = (JButton)component[39];
+        button4 = (JButton)component[45];
         if(!button1.getText().equals("") && button1.getText().equals(button2.getText()) && button1.getText().equals(button3.getText()) && button1.getText().equals(button4.getText())){
             return true;
         }
