@@ -70,6 +70,8 @@ public class ActionJeu extends AbstractAction{
                     button.setForeground(new Color(112, 112, 112));
                     // On met "X" ou "O" sur le bouton
                     button.setText(text);
+                    // On ne peut plus appuyer sur le bouton
+                    button.setEnabled(false);
 
                     // La grille a t elle des élément alignés 
                     if(grille.aligne()){
